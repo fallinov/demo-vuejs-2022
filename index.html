@@ -10,14 +10,24 @@
         <li v-for="prod in produits">
             <strong>{{ prod.nom }}</strong>
             <div v-if="prod.quantite === 0">Plus en stock</div>
-            <div v-else>stock: {{ prod.quantite }} pièces</div>
+            <div v-else>
+                stock:
+                <input type="number" v-model="prod.quantite">
+                pièces
+            </div>
+            <button @click="prod.quantite++">+</button>
+            <button v-if="prod.quantite > 0"
+                    @click="prod.quantite--"
+            >-</button>
         </li>
+        <h2>Total stock: {{ totalStock }}</h2>
     </ul>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script>
     const prod = new Vue({
+        name: 'ListeProduits',
         el: '#produits',
         data: {
             produits: [
@@ -26,7 +36,18 @@
                 {id: 3, nom: 'gants', quantite: 1},
                 {id: 4, nom: 'lunettes', quantite: 31}
             ]
-        }
+        },
+        computed: {
+            totalStock() {
+                let total = 0;
+                // this.produits.forEach(prod => total += prod.quantite);
+                for(let prod of this.produits) {
+                    total += parseInt(prod.quantite)
+                }
+                return total;
+            }
+        },
+
     });
 </script>
 </body>
