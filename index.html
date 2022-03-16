@@ -7,7 +7,11 @@
 <body>
 <div id="produits">
     <ul>
-        <li v-for="prod in produits">{{ prod }}</li>
+        <li v-for="prod in produits">
+            <strong>{{ prod.nom }}</strong>
+            <div v-if="prod.quantite === 0">Plus en stock</div>
+            <div v-else>stock: {{ prod.quantite }} pièces</div>
+        </li>
     </ul>
 </div>
 
@@ -16,7 +20,12 @@
     const prod = new Vue({
         el: '#produits',
         data: {
-            produits: ['parapluie', 'chapeau', 'bottes']
+            produits: [
+                {id: 1, nom: 'parapluie', quantite: 4},
+                {id: 2, nom: 'short', quantite: 0},
+                {id: 3, nom: 'gants', quantite: 1},
+                {id: 4, nom: 'lunettes', quantite: 31}
+            ]
         }
     });
 </script>
