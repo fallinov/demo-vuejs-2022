@@ -29,7 +29,10 @@
 <div id="produits">
     <ul>
         <li v-for="prod in produits">
-            <strong title="prod.quantite">{{ prod.nom }}</strong>
+            <h2 title="prod.quantite">{{ prod.nom }}</h2>
+
+            <img v-if="prod.img" :src="'img/' + prod.img" :alt="prod.nom">
+
             <div v-if="prod.quantite === 0">Plus en stock</div>
             <div v-else>
                 stock:
