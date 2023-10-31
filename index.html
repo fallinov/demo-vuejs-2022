@@ -26,53 +26,27 @@
     </style>
 </head>
 <body>
-<div id="produits">
-    <ul>
-        <li v-for="prod in produits">
-            <h2 title="prod.quantite">{{ prod.nom }}</h2>
-
-            <img v-if="prod.img" :src="'img/' + prod.img" :alt="prod.nom">
-
-            <div v-if="prod.quantite === 0">Plus en stock</div>
-            <div v-else>
-                stock:
-                <input type="number" v-model="prod.quantite">
-                pièces
-            </div>
-            <button @click="prod.quantite++">+</button>
-            <button v-if="prod.quantite > 0"
-                    @click="prod.quantite--"
-            >-</button>
-        </li>
-        <h2>Total stock: {{ totalStock }}</h2>
-    </ul>
+<div id="app">
+    <input :value="text" @input="onInput" placeholder="Type here">
+    <p>{{ text }}</p>
 </div>
 
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script>
-    const prod = new Vue({
-        name: 'ListeProduits',
-        el: '#produits',
-        data: {
-            produits: [
-                {id: 1, nom: 'parapluie', quantite: 4, img: 'android.png'},
-                {id: 2, nom: 'short', quantite: 0, img: 'apple.png'},
-                {id: 3, nom: 'gants', quantite: 1, img: 'win.jpg'},
-                {id: 4, nom: 'lunettes', quantite: 31, img: ''}
-            ]
-        },
-        computed: {
-            totalStock() {
-                let total = 0;
-                // this.produits.forEach(prod => total += prod.quantite);
-                for(let prod of this.produits) {
-                    total += parseInt(prod.quantite)
-                }
-                return total;
+<script type="module">
+    const { createApp } = Vue
+
+    createApp({
+        data() {
+            return {
+                text: ''
             }
         },
-
-    });
+        methods: {
+            onInput(e) {
+                this.text = e.target.value
+            }
+        }
+    }).mount('#app')
 </script>
 </body>
 </html>
